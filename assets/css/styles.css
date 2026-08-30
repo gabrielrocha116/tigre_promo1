@@ -1,0 +1,451 @@
+/* ============================================================
+   TIGRE PROMO — Link em Bio (Grupo do Telegram)
+   Design System · Version 3.0.0
+   ============================================================ */
+
+/* ─── 1. TOKENS ──────────────────────────────────────────── */
+:root {
+  --bg: #0a0502;
+  --bg-gradient: linear-gradient(160deg, #ff9142 0%, #e8590c 18%, #7c2d12 42%, #24100a 68%, #050302 100%);
+  --surface: #ffffff;
+  --fg: #fff6ee;
+  --muted: #e6cdb3;
+  --gray: #5b6b82;
+  --border: rgba(11, 18, 32, 0.09);
+
+  --primary: #229ed9;
+  --primary-hover: #1688c7;
+  --cta: #2aabee;
+  --accent: #f59e0b;
+
+  --whatsapp: #25d366;
+  --whatsapp-dark: #128c7e;
+  --shadow-cta-whatsapp: 0 10px 30px -8px rgba(37, 211, 102, 0.5);
+  --shadow-cta-whatsapp-hover: 0 16px 40px -8px rgba(37, 211, 102, 0.6);
+
+  --font-display: "Manrope", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --shadow-card: 0 1px 2px rgba(11, 18, 32, 0.04), 0 20px 48px -20px rgba(11, 18, 32, 0.18);
+  --shadow-cta: 0 10px 30px -8px rgba(42, 171, 238, 0.5);
+  --shadow-cta-hover: 0 16px 40px -8px rgba(42, 171, 238, 0.6);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── 2. RESET ───────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-gradient);
+  background-color: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── 3. PAGE LAYOUT ─────────────────────────────────────── */
+.page {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 48px 20px calc(32px + env(safe-area-inset-bottom));
+  overflow: hidden;
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(closest-side, #000 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(closest-side, #000 0%, transparent 78%);
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+  animation: drift 22s ease-in-out infinite;
+}
+
+.glow-1 {
+  width: 480px;
+  height: 480px;
+  background: rgba(34, 158, 217, 0.2);
+  top: -200px;
+  right: -140px;
+  animation-duration: 26s;
+}
+
+.glow-2 {
+  width: 400px;
+  height: 400px;
+  background: rgba(245, 158, 11, 0.12);
+  bottom: -180px;
+  left: -140px;
+  animation-duration: 32s;
+  animation-delay: -6s;
+}
+
+.glow-3 {
+  width: 320px;
+  height: 320px;
+  background: rgba(42, 171, 238, 0.14);
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-duration: 24s;
+  animation-delay: -12s;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(24px, -18px) scale(1.08);
+  }
+}
+
+.glow-3 {
+  animation-name: drift-center;
+}
+
+@keyframes drift-center {
+  0%,
+  100% {
+    transform: translate(-50%, 0) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -18px) scale(1.08);
+  }
+}
+
+/* ─── 4. CARD ────────────────────────────────────────────── */
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ─── 5. REVEAL ──────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: reveal-in 0.7s var(--ease) forwards;
+}
+
+@keyframes reveal-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.avatar-wrap.reveal {
+  animation: reveal-in 0.7s var(--ease) forwards, float 5s ease-in-out 0.7s infinite;
+}
+.name.reveal {
+  animation-delay: 0.1s;
+}
+.bio.reveal {
+  animation-delay: 0.18s;
+}
+.trust-line.reveal {
+  animation-delay: 0.24s;
+}
+.cta.reveal {
+  animation-delay: 0.32s;
+}
+.cta-whatsapp.reveal {
+  animation-delay: 0.38s;
+}
+.microcopy.reveal {
+  animation-delay: 0.44s;
+}
+.chips.reveal {
+  animation-delay: 0.48s;
+}
+
+/* ─── 6. AVATAR ──────────────────────────────────────────── */
+.avatar-wrap {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  margin-bottom: 24px;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.avatar-glow {
+  position: absolute;
+  inset: -22px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 158, 217, 0.28), transparent 70%);
+  filter: blur(6px);
+  z-index: 0;
+}
+
+.avatar-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 42px;
+  background: #fff;
+  padding: 10px;
+  box-shadow: var(--shadow-card), 0 0 0 1px rgba(34, 158, 217, 0.12);
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 34px;
+}
+
+.avatar-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: 0 6px 16px -4px rgba(34, 158, 217, 0.5);
+}
+
+.avatar-badge .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ─── 7. TEXT ────────────────────────────────────────────── */
+.name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.bio {
+  font-size: 15.5px;
+  color: var(--muted);
+  max-width: 320px;
+  margin-bottom: 12px;
+}
+
+.trust-line {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 28px;
+}
+
+/* ─── 8. CTA ─────────────────────────────────────────────── */
+.cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--cta), var(--primary));
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 18px 24px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-cta);
+  min-height: 44px;
+  animation: reveal-in 0.7s var(--ease) forwards, pulse 3s ease-in-out 1.2s infinite;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.cta::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -30%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-18deg);
+  animation: shine 3.4s ease-in-out 1.6s infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% {
+    left: -30%;
+  }
+  32%,
+  100% {
+    left: 130%;
+  }
+}
+
+.cta:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--shadow-cta-hover);
+}
+
+.cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: var(--shadow-cta);
+  }
+  50% {
+    box-shadow: 0 10px 34px -6px rgba(42, 171, 238, 0.7);
+  }
+}
+
+.cta-whatsapp {
+  margin-top: 12px;
+  background: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-dark));
+  box-shadow: var(--shadow-cta-whatsapp);
+  animation: reveal-in 0.7s var(--ease) forwards, pulse-whatsapp 3s ease-in-out 1.6s infinite;
+}
+
+.cta-whatsapp:hover {
+  box-shadow: var(--shadow-cta-whatsapp-hover);
+}
+
+@keyframes pulse-whatsapp {
+  0%,
+  100% {
+    box-shadow: var(--shadow-cta-whatsapp);
+  }
+  50% {
+    box-shadow: 0 10px 34px -6px rgba(37, 211, 102, 0.7);
+  }
+}
+
+.microcopy {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  margin-top: 14px;
+}
+
+/* ─── 9. CHIPS ───────────────────────────────────────────── */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--gray);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+}
+
+.chip .icon {
+  width: 14px;
+  height: 14px;
+  color: var(--primary);
+}
+
+/* ─── 10. FOOTER ─────────────────────────────────────────── */
+.footer-note {
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+/* ─── 11. RESPONSIVE ─────────────────────────────────────── */
+@media (min-width: 480px) {
+  .avatar-wrap {
+    width: 196px;
+    height: 196px;
+  }
+  .name {
+    font-size: 29px;
+  }
+}
